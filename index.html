@@ -1,0 +1,857 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kinsukh Guest House</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+        }
+
+        h1 {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        .hero {
+            position: relative;
+            height: 100vh;
+            background-image: url('https://images.unsplash.com/photo-1695619881322-0e41b49f9d3b?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D');
+            background-size: cover;
+            background-position: center;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(to bottom, rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.8));
+            z-index: 1;
+        }
+
+        .hero-content {
+            text-align: center;
+            color: #fff;
+            z-index: 2;
+            padding: 20px;
+        }
+
+        .hero h1 {
+            font-size: 3rem;
+            margin-bottom: 10px;
+        }
+
+        .hotel-name {
+            font-weight: bold;
+            color: #ffd700;
+        }
+
+        .hero p {
+            font-size: 1.2rem;
+            margin: 5px 0;
+        }
+
+
+        /* BUttons Starts Here */
+
+        .buttons {
+            display: flex;
+            gap: 10px;
+        }
+
+          .guest-house {
+            display: flex;
+            margin: 20px 0;
+            border: 1px solid #ddd;
+            padding: 10px;
+            border-radius: 8px;
+        }
+
+        .guest-house img {
+            width: 320px;
+            height: 250px;
+            border-radius: 10px;
+            position: relative;
+        }
+
+        .guest-house-info {
+            padding-left: 20px;
+            max-width: 600px;
+        }
+
+        .price {
+            font-weight: bold;
+            color: #2e8b57;
+        }
+
+        .like-btn {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            background-color: rgba(255, 255, 255, 0.8);
+            border: none;
+            padding: 8px;
+            border-radius: 50%;
+            cursor: pointer;
+        }
+
+        .modal {
+            display: inline;
+            z-index: 1;
+            padding-top: 60px;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            overflow: auto;
+            border: 5px black;
+            background-color: rgba(0, 0, 0, 0.4);
+        }
+
+        .modal {
+            display: none;
+            /* Hidden by default */
+            z-index: 1;
+            padding-top: 60px;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            overflow: auto;
+            border: 5px black;
+            background-color: rgba(0, 0, 0, 0.4);
+        }
+
+        .modal-content {
+            margin: auto;
+            padding: 20px;
+            width: 80%;
+            background-color: white;
+            border: 5px black;
+        }
+
+        .image-scroll-container {
+            display: flex;
+            overflow-x: auto;
+            scroll-behavior: smooth;
+        }
+
+        .image-scroll-container div {
+            flex: 0 0 auto;
+            width: 300px;
+            margin-right: 10px;
+        }
+
+        .scroll-btn {
+            cursor: pointer;
+            padding: 10px;
+            font-size: 16px;
+            margin: 5px;
+            background-color: #333;
+            color: white;
+            border: none;
+            border-radius: 5px;
+        }
+
+        .close-btn {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            font-size: 24px;
+            background: none;
+            border: 3px sloid black;
+            cursor: pointer;
+            color: red;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+        }
+
+
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+        }
+
+        h1 {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        h {
+            color: green;
+        }
+
+        h3 {
+            color: black;
+            text-align: center;
+
+        }
+
+                /* Basic Reset */
+                * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        /* Navbar styling */
+        nav {
+            background-color:white;
+            
+            padding: 1em;
+            text-align: center;
+        }
+        
+        nav a {
+            color:black;
+            margin: 0 1em;
+            text-decoration: none;
+            font-size: 1.2em;
+        }
+        
+        nav a:hover {
+            color: #ffd700;
+        }
+        
+        /* Section styling */
+        .content-section {
+            display: none;
+            padding: 2em;
+            text-align: center;
+        }
+        
+        .content-section.active {
+            display: block;
+        }
+        
+        .content-section h2 {
+            margin-bottom: 1em;
+            color: #333;
+        }
+
+        /* Contact Us section styling */
+        #contact {
+            background-color: #f9f9f9;
+            padding: 40px;
+            text-align: center;
+        }
+
+        #contact form {
+            max-width: 500px;
+            margin: 0 auto;
+        }
+
+        #contact input,
+        #contact textarea {
+            width: 100%;
+            padding: 10px;
+            margin: 10px 0;
+            border-radius: 5px;
+            border: 1px solid #ccc;
+        }
+
+        #contact button {
+            background-color: #48e98e;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        #contact button:hover {
+            background-color: #45a049;
+        }
+
+        .corner-text {
+        
+            color:#ccc;
+            font-weight: 100;
+
+        }
+
+        /* Additional page styling */
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: Arial, sans-serif;
+
+        }
+
+        /* Example content to demonstrate placement */
+        .content {
+            padding: 20px;
+            margin-top: 50px;
+            /* Space below the corner text */
+        }
+
+        .book-now:hover {
+            background-color: #005bb5;
+        }
+        .view-rooms-btn{
+          margin-top: 32px;
+        }
+        .service-item{
+          color:green
+        }
+        /* Contact Us section styling */
+  
+    </style>
+</head>
+
+<body>
+  
+
+
+
+    <section class="hero">
+        <div class="hero-content">
+           <h2 class="corner-text"> simple-unique-friendly<h2>
+            <h1>Welcome to <span class="hotel-name">Kingsukh Guest House</span></h1>
+            <p>Your perfect getaway awaits</p>
+            <p>Enjoy luxurious amenities, breathtaking views, and exceptional service</p>
+
+        </div>
+    </section>
+<!-- Navbar -->
+<nav>
+  <a href="#about" onclick="showSection('about')">About Us</a>
+  <a href="#services" onclick="showSection('services')">Services</a>
+  <a href="#contact" onclick="showSection('contact')">BookNow</a>
+</nav>
+
+
+    <div class="corner-text"></div>
+
+
+    <div class="guest-house" id="guest-house1">
+        <div style="position: relative;">
+            <img src="https://im.whatshot.in/img/2020/Sep/050ba99b-84c3-4cfd-9b65-2e28754ba681-1577779385-1600419889.jpg"
+                alt="Khan Guest House">
+            <button class="like-btn">❤</button>
+        </div>
+        <div class="guest-house-info">
+            <h2>Namaste Guest House</h2>
+            <h>Location: Varanasi, Uttar Pradesh</h>
+            <p>Namaste Guest House provides a peaceful retreat in the spiritual city of Varanasi. Rooms are simple yet
+                comfortable, catering to backpackers and spiritual seekers.</p>
+            <p class="price">Price: ₹3000 per day</p>
+                <button class="view-rooms-btn" onclick="openModal('modal1')">View Rooms</button>
+
+            <div class="contact"></div>
+            <div class="guesthouse-directions">
+              <a href="https://www.google.com/maps?q=Namaste+Guest+House,+Varanasi,+Uttar+Pradesh"
+              target="_blank">
+           
+                    <h3>Get Directions</h3>
+                </a>
+            </div>
+        </div>
+
+    </div>
+    <div id="modal1" class="modal">
+        <div class="modal-content">
+            <h2>Rooms at Beachside Guest House</h2>
+            <div>
+                <p class="caption">Room 1 -Living area</p>
+                <img src="https://media-cdn.tripadvisor.com/media/vr-splice-j/06/ea/b1/85.jpg" alt="Room 1">
+                <p class="caption">Room 2 -Bedroom</p>
+                <img src="https://www.sa-venues.com/visit/mountainview/17g.jpg" alt="Room 2">
+            </div>
+            <button class="close-modal" onclick="closeModal('modal1')">Close</button>
+        </div>
+    </div>
+ 
+</section>
+
+    <!-- Duplicate structure for each guest house -->
+    <!-- Guest House 2 -->
+    
+    <div class="guest-house" id="guest-house2">
+        <div style="position: relative;">
+            <img src="https://i.pinimg.com/originals/f3/49/59/f349594a601e7fec20e2312d1e98e67a.jpg"
+                alt="Beach Side Guest House">
+            <button class="like-btn">❤</button>
+        </div>
+        <div class="guest-house-info">
+            <h2>Cinnamon Guest House</h2>
+            <h>Location: Gokarna, Karnataka</h>
+            <p>A beachside guest house, Cinnamon provides budget-friendly accommodations and easy access to some of
+                Gokarna’s best beaches..</p>
+            <p class="price">Price: ₹2500 per day</p>
+            <button class="view-rooms-btn" onclick="openModal('modal2')">View Rooms</button>
+            <div class="guesthouse-directions">
+                <a href="https://www.google.com/maps?q=Cinnamon+Guest+House" target="_blank">
+                    <h3>Get Directions</h3>
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <div id="modal2" class="modal">
+        <div class="modal-content">
+            <h2>Rooms at Beachside Guest House</h2>
+            <div>
+                <p class="caption">Room 1 -Living area</p>
+                <img src="https://media-cdn.tripadvisor.com/media/photo-s/12/f4/52/d3/unique-towers-luxury.jpg"
+                    alt="Room 1">
+                <p class="caption">Room 2 -Bedroom</p>
+                <img src="https://goanvillage.com/wp-content/uploads/2023/01/room-thumb-one.jpg" alt="Room 2">
+            </div>
+            <button class="close-modal" onclick="closeModal('modal2')">Close</button>
+        </div>
+    </div>
+        <!-- Sections -->
+        <section id="about" class="content-section">
+          <h2>About Us</h2>
+          <p>Welcome to our guest houses, where comfort meets affordability. Our properties across India offer cozy accommodations, friendly service, and convenient amenities. Whether you're visiting for business,
+             leisure, or a weekend getaway, we have a place for you to relax and feel at home.</p>
+      </section>
+  
+      <section id="services" class="content-section">
+          <h2>Our Services</h2>
+          <p>Enjoy prompt room service during your stay, with a wide selection of meals and drinks available at your convenience.</p>
+    </div>
+    <div class="service-item">
+      <h3>Free Wi-Fi</h3>
+      </div>
+    <div class="service-item">
+      <h3>24/7 Reception</h3>
+    </div>
+    <div class="service-item">
+      <h3>Tourist Assistance</h3>
+    </div>
+  </div>
+</div>
+
+
+      </section>
+  
+      <section id="contact" class="content-section">
+          <h2>Contact us</h2>
+  <div class="form-group">
+    <label for="name"></label>
+    <input type="text" id="name" class="form-control" placeholder="Enter your full name" required>
+</div>
+<div class="form-group">
+    <label for="email"></label>
+    <input type="email" id="email" class="form-control" placeholder="Enter your email" required>
+</div>
+<div class="form-group">
+    <label for="phone"></label>
+    <input type="tel" id="phone" class="form-control" placeholder="Enter your phone number" required>
+</div>
+
+<!-- Date Selection -->
+<div class="form-row">
+    <div class="form-group col-md-6">
+        <label for="checkin">checkin-date</label>
+        <input type="date" id="checkin" class="form-control" required>
+    </div>
+    <div class="form-group col-md-6">
+        <label for="checkout">checkout-date</label>
+        <input type="date" id="checkout" class="form-control" required>
+    </div>
+</div>
+
+<!-- Room Type Selection -->
+<div class="form-group">
+    <label for="roomType">Room Type</label>
+    <select id="roomType" class="form-control" required>
+        <option value="" disabled selected>Select room type</option>
+        <option value="Single">Single Room</option>
+        <option value="Double">Double Room</option>
+        <option value="Suite">Suite</option>
+    </select>
+</div>
+
+<!-- Special Requests -->
+<div class="form-group">
+    <label for="requests"></label>
+    <textarea id="requests" class="form-control" rows="3" placeholder="Any special requests"></textarea>
+</div>
+
+<!-- Submit Button -->
+<button type="submit" class="btn btn-primary btn-block">Book Now</button>
+</form>
+
+<!-- Booking Confirmation Modal -->
+<div class="modal fade" id="confirmationModal" tabindex="-1" aria-labelledby="confirmationModalLabel" aria-hidden="true">
+<div class="modal-dialog">
+    <div class="modal-content">
+        <div class="modal-header">
+            <h5 class="modal-title" id="confirmationModalLabel">Booking Confirmation</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+        <div class="modal-body">
+            <p>Your booking has been confirmed! We look forward to your stay.</p>
+        </div>
+        <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        </div>
+    </div>
+</div>
+</div>
+</div>
+      </section>
+
+  
+      <!-- JavaScript to Toggle Sections -->
+      <script>
+          function showSection(sectionId) {
+              // Hide all sections
+              document.querySelectorAll('.content-section').forEach((section) => {
+                  section.classList.remove('active');
+              });
+              // Show the selected section
+              document.getElementById(sectionId).classList.add('active');
+          }
+      </script>
+
+
+    <!-- Guest House 3 -->
+    <div class="guest-house" id="guest-house3">
+        <div style="position: relative;">
+            <img src="https://travelground.imgix.net/AAEAAQAAAAAAAAAAAAAAJDE5ZTBmY2VjLWNiYzMtNDBlOC1hNGU2LTg1ODdkNGRlZjJkMw?w=1200&h=630&fit=crop&auto=enhance,format"
+                alt="Mountain View Guest House">
+            <button class="like-btn">❤</button>
+        </div>
+        <div class="guest-house-info">
+            <h1>Mountain View Guest House</h1>
+            <h> Location: Manali, Himachal Pradesh</h>
+            <p>Serene mountain views and peaceful surroundings await you.</p>
+            <p class="price">Price: ₹3500 per day</p>
+            <button class="view-rooms-btn" onclick="openModal('modal3')">View Rooms</button>
+            <div class="guesthouse-directions">
+                <a href="https://www.google.com/maps?q=Mountain+View+Guest+House,+Manali,+Himachal+Pradesh"
+                    target="_blank">
+                    <h3>Get Directions</h3>
+                </a>
+            </div>
+
+        </div>
+    </div>
+
+    <div id="modal3" class="modal">
+        <div class="modal-content">
+            <h2>Rooms at Mountain View Guest House</h2>
+            <div>
+                <p class="caption">Room 1 -Living area</p>
+                <img src="https://photos.holidaylettings.co.uk/media/vr-splice-j/07/12/c3/eb.jpg" alt="Room 1">
+                <p class="caption">Room 2 -Bedroom</p>
+                <img src="https://www.ranthambhorebaghpalace.com/images/gallery/gallery-61.jpg" alt="Room 2">
+            </div>
+            <button class="close-modal" onclick="closeModal('modal3')">Close</button>
+        </div>
+    </div>
+        <!-- Sections -->
+        <section id="about" class="content-section">
+          <h2>About Us</h2>
+          <p>This is the About Us section. Here, you can find information about our mission, vision, and the team.</p>
+      </section>
+  
+      <section id="services" class="content-section">
+          <h2>Our Services</h2>
+          <p>This is the Services section. We offer a wide range of services to meet your needs.</p>
+      </section>
+  
+      <section id="contact" class="content-section">
+          <h2>Contact Us</h2>
+          <p>This is the Contact Us section. Feel free to reach out to us through the form below.</p>
+      </section>
+  
+      <!-- JavaScript to Toggle Sections -->
+      <script>
+          function showSection(sectionId) {
+              // Hide all sections
+              document.querySelectorAll('.content-section').forEach((section) => {
+                  section.classList.remove('active');
+              });
+              // Show the selected section
+              document.getElementById(sectionId).classList.add('active');
+          }
+      </script>
+    <!-- Guest House 4 -->
+    <div class="guest-house" id="guest-house3">
+        <div style="position: relative;">
+            <img src="https://detailplans.com/wp-content/uploads/2021/06/Absolutely-Beautiful-Private-Residence-Guest-House-and-Garage.jpg"" alt="
+                Mountain View Guest House">
+            <button class="like-btn">❤</button>
+        </div>
+        <div class="guest-house-info">
+            <h2>Glenmore Guest House</h2>
+            <h>Location: Munnar, Kerala</h>
+            <p>Serene mountain views and peaceful surroundings await you.</p>
+            <p class="price">Price: ₹3000 per day</p>
+            <button class="view-rooms-btn" onclick="openModal('modal4')">View Rooms</button>
+            <div class="guesthouse-directions">
+                <a href="https://www.google.com/maps?q=Glenmore+Guest+House" target="_blank">
+                    <h3>Get Directions</h3>
+                </a>
+            </div>
+        </div>
+    </div>
+    <div id="modal4" class="modal">
+        <div class="modal-content">
+            <h2>Rooms at Glenmore Guest House</h2>
+            <div>
+                <p class="caption">Room 1 -Living area</p>
+                <img src="https://realman.my/wp-content/uploads/2021/07/photo_2021-07-17_00-06-53-3.jpg" alt="Room 1">
+                <p class="caption">Room 2 -Bedroom</p>
+                <img src="https://www.nxtidea.com/wp-content/uploads/2021/05/Hotel-Shubham-Grand-6.jpg" alt="Room 2">
+            </div>
+            <button class="close-modal" onclick="closeModal('modal4')">Close</button>
+        </div>
+    </div>
+
+    <!-- Guest House 5-->
+    <div class="guest-house" id="guest-house3">
+        <div style="position: relative;">
+            <img src="https://i.ytimg.com/vi/3Mxrb9bqolU/hqdefault.jpg" alt="Mountain View Guest House">
+            <button class="like-btn">❤</button>
+        </div>
+        <div class="guest-house-info">
+            <h2> Palm Grove Guest House</h2>
+            <h>Location: Anjuna Beach, Goa</h>
+            <p>Serene mountain views and peaceful surroundings await you.</p>
+            <p class="price">Price: ₹2800 per night</p>
+            <p>Serene mountain views and peaceful surroundings await you.</p>
+            <button class="view-rooms-btn" onclick="openModal('modal5')">View Rooms</button>
+            <div class="guesthouse-directions">
+                <a href="https://www.google.com/maps?q=Glenmore+Guest+House" target="_blank">
+                    <h3>Get Directions</h3>
+                </a>
+            </div>
+        </div>
+    </div>
+    <div id="modal5" class="modal">
+        <div class="modal-content">
+            <h2>Rooms at Beachside Guest House</h2>
+            <div>
+                <p class="caption">Room 1 -Living area</p>
+                <img src="https://visit.recife.br/wp-content/uploads/2017/08/flat-golden-home.jpg" alt="Room 1">
+                <p class="caption">Room 2 -Bedroom</p>
+                <img src="https://pix10.agoda.net/hotelImages/940/9408025/9408025_19090600490080531780.jpg?s=1024x768"
+                    alt="Room 2">
+            </div>
+            <button class="close-modal" onclick="closeModal('modal5')">Close</button>
+        </div>
+    </div>
+    
+    <!-- Guest House 6 -->
+    <div class="guest-house" id="guest-house3">
+        <div style="position: relative;">
+            <img src="https://dyimg1.realestateindia.com/prop_images/35715/234047_1.jpg"
+                alt="Mountain View Guest House">
+            <button class="like-btn">❤</button>
+        </div>
+        <div class="guest-house-info">
+            <h2> Shanti Guest House</h2>
+            <h>Location: Leh, Ladakh</h>
+            <p>Serene mountain views and peaceful surroundings await you.</p>
+            <p class="price">Price: ₹2600 per day</p>
+            <button class="view-rooms-btn" onclick="openModal('modal6')">View Rooms</button>
+            <div class="guesthouse-directions">
+                <a href="https://www.google.com/maps?q=Shanti+Guest+House,+Manali,+Himachal+Pradesh" target="_blank">
+                    <h3>Get Directions</h3>
+                </a>
+            </div>
+        </div>
+    </div>
+    <div id="modal6" class="modal">
+        <div class="modal-content">
+            <h2>Rooms at Beachside Guest House</h2>
+            <div>
+                <p class="caption">Room 1 -Living area</p>
+                <img src="https://d1hy6t2xeg0mdl.cloudfront.net/image/677826/1088f9d26a/standard" alt="Room 1">
+                <p class="caption">Room 2 -Bedroom</p>
+                <img src="https://pix8.agoda.net/hotelImages/198/1985143/1985143_17030914480051448530.jpg?ca=13&ce=1&s=1024x768"
+                    alt="Room 2">
+            </div>
+            <button class="close-modal" onclick="closeModal('modal6')">Close</button>
+        </div>
+    </div>
+
+
+    <!-- Guest House 7-->
+    <div class="guest-house" id="guest-house3">
+        <div style="position: relative;">
+            <img src="https://wallpapercave.com/wp/wp3982615.jpg" alt="Mountain View Guest House">
+            <button class="like-btn">❤</button>
+        </div>
+        <div class="guest-house-info">
+            <h2>Ganga View Guest House</h2>
+            <h>Location: Varanasi, Uttar Pradesh</h>
+            <p>Serene mountain views and peaceful surroundings await you.</p>
+            <p class="price">Price: ₹3000 per day</p>
+            <button class="view-rooms-btn" onclick="openModal('modal7')">View Rooms</button>
+            <div class="guesthouse-directions">
+                <a href="https://www.google.com/maps?q=Ganga+View+Guest+House,+Manali,+Himachal+Pradesh"
+                    target="_blank">
+                    <h3>Get Directions</h3>
+                </a>
+            </div>
+        </div>
+    </div>
+    <div id="modal7" class="modal">
+        <div class="modal-content">
+            <h2>Rooms at Beachside Guest House</h2>
+            <div>
+                <p class="caption">Room 1 -Living area</p>
+                <img src="https://media.vrbo.com/lodging/84000000/83320000/83311700/83311654/e2e37db3.c10.jpg"
+                    alt="Room 1">
+                <p class="caption">Room 2 -Bedroom</p>
+                <img src="https://www.thecreekresorts.com/img/gal-lrg/10.jpg" alt="Room 2">
+            </div>
+            <button class="close-modal" onclick="closeModal('modal7')">Close</button>
+        </div>
+    </div>
+    <!-- About Us Section -->
+    <div id="about" class="content-section">
+        <h2>About Us</h2>
+        <p>Welcome to our guest houses, where comfort meets affordability. Our properties across India offer cozy
+            accommodations, friendly service, and convenient amenities. Whether you're visiting for business, leisure,
+            or a weekend getaway, we have a place for you to relax and feel at home.</p>
+    </div>
+
+    <!-- Services Section -->
+    <div id="services" class="content-section">
+        <h2>Our Services</h2>
+        <div class="service-list">
+            <div class="service-item">
+                <h3>Room Service</h3>
+                <p>Enjoy prompt room service during your stay, with a wide selection of meals and drinks available at
+                    your convenience.</p>
+            </div>
+            <div class="service-item">
+                <h3>Free Wi-Fi</h3>
+                <p>Stay connected with our complimentary high-speed Wi-Fi in all rooms and common areas.</p>
+            </div>
+            <div class="service-item">
+                <h3>24/7 Reception</h3>
+                <p>Our reception desk is open around the clock to assist you with any requests or information.</p>
+            </div>
+            <div class="service-item">
+                <h3>Tourist Assistance</h3>
+                <p>Get assistance with local tours and travel arrangements to make the most of your visit.</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Contact Us Section -->
+    <div id="contact" class="content-section">
+        <h2>Contact Us</h2>
+        <!-- Guest Details -->
+        <div class="form-group">
+            <label for="name"></label>
+            <input type="text" id="name" class="form-control" placeholder="Enter your full name" required>
+        </div>
+        <div class="form-group">
+            <label for="email"></label>
+            <input type="email" id="email" class="form-control" placeholder="Enter your email" required>
+        </div>
+        <div class="form-group">
+            <label for="phone"></label>
+            <input type="tel" id="phone" class="form-control" placeholder="Enter your phone number" required>
+        </div>
+
+        <!-- Date Selection -->
+        <div class="form-row">
+            <div class="form-group col-md-6">
+                <label for="checkin">checkin-date</label>
+                <input type="date" id="checkin" class="form-control" required>
+            </div>
+            <div class="form-group col-md-6">
+                <label for="checkout">checkout-date</label>
+                <input type="date" id="checkout" class="form-control" required>
+            </div>
+        </div>
+
+        <!-- Room Type Selection -->
+        <div class="form-group">
+            <label for="roomType">Room Type</label>
+            <select id="roomType" class="form-control" required>
+                <option value="" disabled selected>Select room type</option>
+                <option value="Single">Single Room</option>
+                <option value="Double">Double Room</option>
+                <option value="Suite">Suite</option>
+            </select>
+        </div>
+
+        <!-- Special Requests -->
+        <div class="form-group">
+            <label for="requests"></label>
+            <textarea id="requests" class="form-control" rows="3" placeholder="Any special requests"></textarea>
+        </div>
+
+        <!-- Submit Button -->
+        <button type="submit" class="btn btn-primary btn-block">Book Now</button>
+        </form>
+
+        <!-- Booking Confirmation Modal -->
+        <div class="modal fade" id="confirmationModal" tabindex="-1" aria-labelledby="confirmationModalLabel"
+            aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="confirmationModalLabel">Booking Confirmation</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <p>Your booking has been confirmed! We look forward to your stay.</p>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script>
+        // Function to toggle visibility of each section
+        function toggleSection(sectionId) {
+            // Get all content sections
+            const sections = document.querySelectorAll('.content-section');
+
+            // Loop through sections to hide them
+            sections.forEach(section => {
+                if (section.id === sectionId) {
+                    // Toggle display of the clicked section
+                    section.style.display = section.style.display === 'none' || section.style.display === '' ? 'block' : 'none';
+                } else {
+                    // Hide other sections
+                    section.style.display = 'none';
+                }
+            });
+        }
+    </script>
+    <!-- Repeat similar structure for Guest House 4 to Guest House 9, ensuring unique IDs and descriptions -->
+
+    <!-- JavaScript for Modals -->
+    <script>
+        function openModal(id) {
+            document.getElementById(id).style.display = 'flex';
+        }
+
+        function closeModal(id) {
+            document.getElementById(id).style.display = 'none';
+        }
+    </script>
+</body>
